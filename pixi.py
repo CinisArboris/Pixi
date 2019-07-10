@@ -19,15 +19,13 @@ class Pixi:
 			print('No es un directorio')
 			return 'false'
 	
-	def crearCRUD(self):
-		print ('crear leer actualizar eliminar')
+	def crearC(self):
 		for item in self.nombreVista:
 			#crear carpeta
 			if os.path.isdir(self.rutaProyecto + item):
 				print('')
 			else:
 				os.mkdir(self.rutaProyecto + item)
-			print (item)
 			#Crear archivo [create]
 			file = open(self.rutaProyecto+item+"/"+
 						'crear' + item +
@@ -52,7 +50,16 @@ class Pixi:
 			""")
 			file.close()
 			print ('Listo :)' + ' crear' + item)
-			
+			print ('')
+	
+	def crearR(self):
+		print ('leer')
+		for item in self.nombreVista:
+			#crear carpeta
+			if os.path.isdir(self.rutaProyecto + item):
+				print('')
+			else:
+				os.mkdir(self.rutaProyecto + item)
 			#Crear archivo [leer]
 			file = open(self.rutaProyecto+item+"/"+
 						'leer' + item +
@@ -65,9 +72,29 @@ class Pixi:
 		<div class="col-md-8">
 			<div class="card">
 				<div class="card-header">""" + item + """</div>
-
 				<div class="card-body">
-					
+					<table class="table table-hover table-dark">
+						@if(count($datos) == 0)
+						<h1>Sin datos para mostrar...</h1>
+						@else
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">created_at</th>
+									<th scope="col">updated_at</th>
+								</tr>
+							</thead>
+							@foreach ($datos as $dato)
+								<tbody>
+									<tr>
+										<th scope="row">{{$dato->id}}</th>
+										<td>{{$dato->created_at}}</td>
+										<td>{{$dato->updated_at}}</td>
+									</tr>
+								</tbody>
+							@endforeach
+						@endif
+					</table>
 				</div>
 			</div>
 		</div>
@@ -76,8 +103,17 @@ class Pixi:
 @endsection
 			""")
 			file.close()
-			print ('Listo :)' + ' leer' + item)
-			
+			print ('Listo :)' + ' crear' + item)
+			print ('')
+
+	def crearU(self):
+		print ('actualizar')
+		for item in self.nombreVista:
+			#crear carpeta
+			if os.path.isdir(self.rutaProyecto + item):
+				print('')
+			else:
+				os.mkdir(self.rutaProyecto + item)
 			#Crear archivo [actualizar]
 			file = open(self.rutaProyecto+item+"/"+
 						'actualizar' + item +
@@ -101,8 +137,17 @@ class Pixi:
 @endsection
 			""")
 			file.close()
-			print ('Listo :)' + ' actualizar' + item)
-			
+			print ('Listo :)' + ' crear' + item)
+			print ('')
+	
+	def crearD(self):
+		print ('eliminar')
+		for item in self.nombreVista:
+			#crear carpeta
+			if os.path.isdir(self.rutaProyecto + item):
+				print('')
+			else:
+				os.mkdir(self.rutaProyecto + item)
 			#Crear archivo [eliminar]
 			file = open(self.rutaProyecto+item+"/"+
 						'eliminar' + item +
@@ -126,15 +171,15 @@ class Pixi:
 @endsection
 			""")
 			file.close()
-			print ('Listo :)' + ' eliminar' + item)
+			print ('Listo :)' + ' crear' + item)
 			
-			
-			print ('')
-
 pixi = Pixi('C:/laragon/www/', 'CRUD')
 validar = pixi.verificarPath(pixi.rutaProyecto)
 if validar == 'true':
-	pixi.crearCRUD()
+	pixi.crearC()
+	pixi.crearR()
+	pixi.crearU()
+	pixi.crearD()
 
 
 
