@@ -6,6 +6,19 @@ class Pixi:
 	nombreProyecto = ''
 
 	def __init__(self, rutaProyecto, nombreProyecto):
+		print ("""
+  ██████  ▄████▄  ▓█████  ██▀███   ██▓  ██████ 
+▒██    ▒ ▒██▀ ▀█  ▓█   ▀ ▓██ ▒ ██▒▓██▒▒██    ▒ 
+░ ▓██▄   ▒▓█    ▄ ▒███   ▓██ ░▄█ ▒▒██▒░ ▓██▄   
+  ▒   ██▒▒▓▓▄ ▄██▒▒▓█  ▄ ▒██▀▀█▄  ░██░  ▒   ██▒
+▒██████▒▒▒ ▓███▀ ░░▒████▒░██▓ ▒██▒░██░▒██████▒▒
+▒ ▒▓▒ ▒ ░░ ░▒ ▒  ░░░ ▒░ ░░ ▒▓ ░▒▓░░▓  ▒ ▒▓▒ ▒ ░
+░ ░▒  ░ ░  ░  ▒    ░ ░  ░  ░▒ ░ ▒░ ▒ ░░ ░▒  ░ ░
+░  ░  ░  ░           ░     ░░   ░  ▒ ░░  ░  ░  
+      ░  ░ ░         ░  ░   ░      ░        ░  
+         ░
+Vargas Medina Eyver Emilio / CinisArboris		 
+		""")
 		self.nombreVista = input('Dame el nombre de tu vista: ')
 		self.nombreVista = self.nombreVista.split(" ")
 		self.nombreProyecto = nombreProyecto
@@ -13,10 +26,8 @@ class Pixi:
 		
 	def verificarPath(self, rutaProyecto):
 		if os.path.isdir(rutaProyecto):
-			print ('>>> Es directorio')
 			return 'true'
 		else:
-			print('No es un directorio')
 			return 'false'
 	
 	def crearC(self):
@@ -50,7 +61,6 @@ class Pixi:
 			""")
 			file.close()
 			print ('Listo :)' + ' crear' + item)
-			print ('')
 	
 	def crearR(self):
 		print ('leer')
@@ -80,16 +90,16 @@ class Pixi:
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">created_at</th>
-									<th scope="col">updated_at</th>
+									<th scope="col">nombre</th>
+									<th scope="col">descripcion</th>
 								</tr>
 							</thead>
 							@foreach ($datos as $dato)
 								<tbody>
 									<tr>
 										<th scope="row">{{$dato->id}}</th>
-										<td>{{$dato->created_at}}</td>
-										<td>{{$dato->updated_at}}</td>
+										<td>{{$dato->nombre}}</td>
+										<td>{{$dato->descripcion}}</td>
 									</tr>
 								</tbody>
 							@endforeach
@@ -104,7 +114,6 @@ class Pixi:
 			""")
 			file.close()
 			print ('Listo :)' + ' crear' + item)
-			print ('')
 
 	def crearU(self):
 		print ('actualizar')
@@ -138,7 +147,6 @@ class Pixi:
 			""")
 			file.close()
 			print ('Listo :)' + ' crear' + item)
-			print ('')
 	
 	def crearD(self):
 		print ('eliminar')
@@ -172,7 +180,21 @@ class Pixi:
 			""")
 			file.close()
 			print ('Listo :)' + ' crear' + item)
-			
+	
+	def rutas(self):
+		for item in self.nombreVista:
+			rutas = open('C:/laragon/www/CRUD/routes/web.php', 'a+')
+			rutas.write("// // \n")
+			rutas.write("Route::get('/"+ item + "/leer"+ item + "', '"+ item + "Controller@index')->name('leer"+ item + "'); \n")
+			rutas.write("Route::get('/"+ item + "/crear"+ item + "', '"+ item + "Controller@create')->name('crear"+ item + "'); \n")
+			rutas.write("Route::post('/"+ item + "/guardar"+ item + "', '"+ item + "Controller@store')->name('guardar"+ item + "'); \n")
+			rutas.write("Route::get('/"+ item + "/mostrar"+ item + "/{id}', '"+ item + "Controller@show')->name('mostrar"+ item + "'); \n")
+			rutas.write("Route::get('/"+ item + "/editar"+ item + "/{id}', '"+ item + "Controller@edit')->name('editar"+ item + "'); \n")
+			rutas.write("Route::put('/"+ item + "/actualizar"+ item + "/{id}', '"+ item + "Controller@update')->name('actualizar"+ item + "'); \n")
+			rutas.write("Route::delete('/"+ item + "/destruir"+ item + "/{id}', '"+ item + "Controller@destroy')->name('destruir"+ item + "'); \n")
+			rutas.close()
+			print (item)
+
 pixi = Pixi('C:/laragon/www/', 'CRUD')
 validar = pixi.verificarPath(pixi.rutaProyecto)
 if validar == 'true':
@@ -180,7 +202,7 @@ if validar == 'true':
 	pixi.crearR()
 	pixi.crearU()
 	pixi.crearD()
-
+	pixi.rutas()
 
 
 
